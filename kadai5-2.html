@@ -6,15 +6,18 @@
 <body>
     <h1 id="msg">何かのAPI</h1>
     <form name="apiform"><p>
-        何かのフォーム：<input type="text" name="form_data">
+        何かのフォーム：<input type="text" id="text" name="form_data">
         <button type="button" id="btn1" onclick="some_api(this.form)">実行</button>
     </p></form>
     
     <div id="result"></div>
     <script>
+        document.getElementById("text").value = "https://official-joke-api.appspot.com/random_joke";
+
         async function some_api(myForm) {
-            // ここにコードを書く
-            document.getElementById("result").innerHTML += myForm.form_data.value+"<br />";
+            const responsor = await (await fetch(myForm.form_data.value)).json();
+
+            document.getElementById("result").innerHTML += responsor.setup+"<br />";
             document.apiform.reset();
         }
     </script>
